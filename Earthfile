@@ -15,6 +15,8 @@ release:
         --ARCH=amd64 \
         --ARCH=arm64
 
+    BUILD +install-script
+
 ubuntu:
     FROM ${UBUNTU_IMAGE}
     RUN apt-get update && apt-get install -y systemctl gettext-base
