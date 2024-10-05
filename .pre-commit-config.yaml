@@ -4,12 +4,12 @@
 # git commit -n
 repos:
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v2.4.0
+    rev: v3.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-yaml
         stages: [commit]
@@ -24,11 +24,11 @@ repos:
       - id: detect-private-key
         stages: [commit]
   - repo: https://github.com/crate-ci/typos
-    rev: v1.24.5
+    rev: v1.25.0
     hooks:
       - id: typos
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v2.4.0
+    rev: v3.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]

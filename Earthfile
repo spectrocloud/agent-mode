@@ -91,5 +91,3 @@ install-script:
     RUN chmod +x /workdir/install.sh
 
     SAVE ARTIFACT --keep-own /workdir/install.sh AS LOCAL ./build/install.sh
-
-
