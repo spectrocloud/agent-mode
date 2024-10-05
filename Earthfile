@@ -41,7 +41,7 @@ palette-agent:
     COPY (+stylus-image/opt/spectrocloud/bin/palette-agent --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/
     RUN chmod +x /workdir/palette-agent
 
-    SAVE ARTIFACT --keep-own /workdir/palette-agent AS LOCAL ./build/palette-agent-${VERSION}-${PLATFORM}-${ARCH}
+    SAVE ARTIFACT --keep-own /workdir/palette-agent AS LOCAL ./build/palette-agent-${PLATFORM}-${ARCH}
 
 package-tar:
     FROM +ubuntu
@@ -50,7 +50,7 @@ package-tar:
     ARG PLATFORM=linux
     ARG ARCH=amd64
     ARG STYLUS_IMAGE=${SPECTRO_PUB_REPO}/edge/stylus-agent-mode-${PLATFORM}-${ARCH}:${VERSION}
-    ARG TAR_NAME=agent-mode-${VERSION}-${PLATFORM}-${ARCH}
+    ARG TAR_NAME=agent-mode-${PLATFORM}-${ARCH}
 
     WORKDIR /workdir/var/lib/spectro
     COPY (+stylus-image/ --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/var/lib/spectro/stylus

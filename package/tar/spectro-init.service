@@ -1,12 +1,12 @@
 [Unit]
 Description=Spectro Initialization 
-Before=local-fs.target spectro-edge-agent-bootstrap.service
+Before=local-fs.target spectro-palette-agent-bootstrap.service
 
 [Service]
 ExecStart=/var/lib/spectro/spectro-init.sh
 User=root
 Group=root
-Restart=on-failure`
+Restart=on-failure
 RemainAfterExit=yes
 RestartSec=5s
 
