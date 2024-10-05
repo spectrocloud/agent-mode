@@ -48,6 +48,7 @@ jobs:
         with:
           name: palette-agent-linux-amd64
           path: build/palette-agent-linux-amd64
+          overwrite: true
       - name: Build install script
         env:
           VERSION: ${{ steps.version.outputs.version }}
@@ -64,3 +65,4 @@ jobs:
         with:
           name: install.sh
           path: build/install.sh
+          overwrite: true
