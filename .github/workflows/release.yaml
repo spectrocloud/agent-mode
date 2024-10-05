@@ -1,4 +1,4 @@
-name: Release
+name: release
 
 on:
   push:
@@ -33,6 +33,12 @@ jobs:
         run: earthly --ci --output +release --VERSION=${{ github.ref }}
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           files: build/*
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        with:
+          name: build
+          path: build/*
