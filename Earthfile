@@ -14,6 +14,8 @@ release:
         --PLATFORM=linux \
         --ARCH=amd64 \
         --ARCH=arm64
+    
+    BUILD +install-script
 
 ubuntu:
     FROM ${UBUNTU_IMAGE}

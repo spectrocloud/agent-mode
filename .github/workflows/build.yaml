@@ -37,32 +37,8 @@ jobs:
         run: |
           echo $(git describe --exact-match --tags || echo "v0.0.0-$(git rev-parse --short=8 HEAD)") > VERSION
           echo "version=$(head -n 1 VERSION)" >> $GITHUB_OUTPUT
-      - name: Build palette-agent
+      - name: Build artifacts
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
-          earthly --ci --output +palette-agent
-      - name: Upload palette-agent-linux-amd64
-        id: palette-agent-linux-amd64
-        uses: actions/upload-artifact@v4
-        with:
-          name: palette-agent-linux-amd64
-          path: build/palette-agent-linux-amd64
-          overwrite: true
-      - name: Build install script
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-          AGENT_URL_PREFIX: ${{ steps.palette-agent-linux-amd64.outputs.artifact-url }}
-        run: |
-          url=${{ steps.palette-agent-linux-amd64.outputs.artifact-url }}
-          base_url="${url%/*}"
-          echo $base_url
-
-          earthly --ci --output +install-script --AGENT_URL_PREFIX=$base_url
-      - name: Upload install script
-        id: install-script
-        uses: actions/upload-artifact@v4
-        with:
-          name: install.sh
-          path: build/install.sh
-          overwrite: true
+          earthly --ci --output +release

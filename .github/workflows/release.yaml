@@ -36,7 +36,6 @@ jobs:
           VERSION: ${{ github.ref_name}}
         run: |
           earthly --ci --output +release
-          earthly --ci --output +install-script
       - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
