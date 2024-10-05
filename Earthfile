@@ -14,7 +14,7 @@ release:
         --PLATFORM=linux \
         --ARCH=amd64 \
         --ARCH=arm64
-
+    
     BUILD +install-script
 
 ubuntu:
@@ -27,7 +27,7 @@ stylus-image:
     ARG ARCH=amd64
     ARG STYLUS_IMAGE
     FROM --platform=$PLATFORM/$ARCH $STYLUS_IMAGE
-    SAVE ARTIFACT --keep-own ./*
+    SAVE ARTIFACT ./*
 
 palette-agent:
     FROM +ubuntu
@@ -41,7 +41,7 @@ palette-agent:
     COPY (+stylus-image/opt/spectrocloud/bin/palette-agent --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/
     RUN chmod +x /workdir/palette-agent
 
-    SAVE ARTIFACT --keep-own /workdir/palette-agent AS LOCAL ./build/palette-agent-${PLATFORM}-${ARCH}
+    SAVE ARTIFACT /workdir/palette-agent AS LOCAL ./build/palette-agent-${PLATFORM}-${ARCH}
 
 package-tar:
     FROM +ubuntu
@@ -76,12 +76,14 @@ package-tar:
 
 install-script:
     FROM +ubuntu
-    
-    ARG VERSION=$(head -n 1 PE_VERSION)
+
+    ARG VERSION
+    ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG IMAGE_REPO=${SPECTRO_PUB_REPO}/edge
-    ARG AGENT_URL_PREFIX=https://github.com/spectrocloud/agent-mode/releases/latest/download
+    # https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc2/palette-agent-linux-amd64
+    ARG AGENT_URL_PREFIX=https://github.com/spectrocloud/agent-mode/releases/download/${VERSION}
     
-    ENV PE_VERSION=${VERSION}
+    ENV PE_VERSION=${PE_VERSION}
     ENV IMAGE_REPO=${IMAGE_REPO}
     ENV AGENT_URL_PREFIX=${AGENT_URL_PREFIX}
 
@@ -90,4 +92,4 @@ install-script:
     RUN envsubst '${PE_VERSION} ${IMAGE_REPO} ${AGENT_URL_PREFIX}' < /workdir/install.sh.tmpl > /workdir/install.sh
     RUN chmod +x /workdir/install.sh
 
-    SAVE ARTIFACT --keep-own /workdir/install.sh AS LOCAL ./build/install.sh
+    SAVE ARTIFACT /workdir/install.sh AS LOCAL ./build/install.sh
