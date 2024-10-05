@@ -30,7 +30,10 @@ jobs:
           version: "latest"
           use-cache: true
       - name: Run Release target
-        run: earthly --ci --output +release --VERSION=${{ github.ref_name }}
+        run: |
+          echo $(git describe --exact-match --tags || echo "v0.0.0-$(git rev-parse --short=8 HEAD)") > VERSION
+          export VERSION=$(head -n 1 VERSION)
+          earthly --ci --output +release
       - name: Release
         uses: softprops/action-gh-release@v2
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
