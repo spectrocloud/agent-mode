@@ -27,7 +27,7 @@ stylus-image:
     ARG ARCH=amd64
     ARG STYLUS_IMAGE
     FROM --platform=$PLATFORM/$ARCH $STYLUS_IMAGE
-    SAVE ARTIFACT --keep-own ./*
+    SAVE ARTIFACT ./*
 
 palette-agent:
     FROM +ubuntu
@@ -41,7 +41,7 @@ palette-agent:
     COPY (+stylus-image/opt/spectrocloud/bin/palette-agent --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/
     RUN chmod +x /workdir/palette-agent
 
-    SAVE ARTIFACT --keep-own /workdir/palette-agent AS LOCAL ./build/palette-agent-${PLATFORM}-${ARCH}
+    SAVE ARTIFACT /workdir/palette-agent AS LOCAL ./build/palette-agent-${PLATFORM}-${ARCH}
 
 package-tar:
     FROM +ubuntu
@@ -92,4 +92,4 @@ install-script:
     RUN envsubst '${PE_VERSION} ${IMAGE_REPO} ${AGENT_URL_PREFIX}' < /workdir/install.sh.tmpl > /workdir/install.sh
     RUN chmod +x /workdir/install.sh
 
-    SAVE ARTIFACT --keep-own /workdir/install.sh AS LOCAL ./build/install.sh
+    SAVE ARTIFACT /workdir/install.sh AS LOCAL ./build/install.sh
