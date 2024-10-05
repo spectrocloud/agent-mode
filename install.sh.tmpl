@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+# set -x
+
+# Get the platform architecture
+ARCH=$(uname -m)
+VERSION=${PE_VERSION}
+
+# Check the architecture and print the appropriate message
+if [ "$ARCH" == "x86_64" ]; then
+    ARCH=amd64
+elif [ "$ARCH" == "aarch64" ] || [ "$ARCH" == "arm64" ]; then
+    ARCH=arm64
+else
+    echo "Unsupported architecture: $ARCH"
+fi
+
+IMAGE=${IMAGE_REPO}/stylus-agent-mode-linux-${ARCH}:${VERSION}
+URL=${AGENT_URL_PREFIX}/palette-agent-${VERSION}-linux-${ARCH}
+
+# Download edge-agent
+curl -v -L $URL -o palette-agent
+chmod +x palette-agent
+
+# Install with palette-agent
+if [ -z "$USER_DATA" ]; then
+    # Install without user data
+    ./palette-agent install --source $IMAGE
+else
+    # Install with user data
+    ./palette-agent install --source $IMAGE --config "$USER_DATA"
+fi
