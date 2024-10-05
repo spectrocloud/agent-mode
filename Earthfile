@@ -76,12 +76,14 @@ package-tar:
 
 install-script:
     FROM +ubuntu
-    
-    ARG VERSION=$(head -n 1 PE_VERSION)
+
+    ARG VERSION
+    ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG IMAGE_REPO=${SPECTRO_PUB_REPO}/edge
-    ARG AGENT_URL_PREFIX=https://github.com/spectrocloud/agent-mode/releases/latest/download
+    # https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc2/palette-agent-linux-amd64
+    ARG AGENT_URL_PREFIX=https://github.com/spectrocloud/agent-mode/releases/download/${VERSION}
     
-    ENV PE_VERSION=${VERSION}
+    ENV PE_VERSION=${PE_VERSION}
     ENV IMAGE_REPO=${IMAGE_REPO}
     ENV AGENT_URL_PREFIX=${AGENT_URL_PREFIX}
 

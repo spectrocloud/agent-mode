@@ -30,7 +30,7 @@ jobs:
           version: "latest"
           use-cache: true
       - name: Run Release target
-        run: earthly --ci --output +release
+        run: earthly --ci --output +release --VERSION=${{ github.ref }}
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
