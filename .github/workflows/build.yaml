@@ -1,0 +1,61 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+      - name: Install earthly
+        uses: earthly/actions-setup@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: "latest"
+          use-cache: true
+      - name: Calculate Version
+        id: version
+        run: |
+          echo $(git describe --exact-match --tags || echo "v0.0.0-$(git rev-parse --short=8 HEAD)") > VERSION
+          echo "version=$(head -n 1 VERSION)" >> $GITHUB_OUTPUT
+      - name: Build palette-agent
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          earthly --ci --output +palette-agent
+      - name: Upload palette-agent-linux-amd64
+        id: palette-agent-linux-amd64
+        uses: actions/upload-artifact@v4
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        with:
+          name: palette-agent-linux-amd64
+          path: build/palette-agent-linux-amd64
+      - name: Build install script
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          AGENT_URL_PREFIX: ${{ steps.palette-agent-linux-amd64.outputs.artifact-url }}
+        run: |
+          url=${{ steps.palette-agent-linux-amd64.outputs.artifact-url }}
+          base_url="${url%/*}"
+          echo $base_url
+
+          earthly --ci --output +install-script --AGENT_URL_PREFIX=$base_url
