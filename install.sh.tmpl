@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+# set -x
+
+# Get the platform architecture
+ARCH=$(uname -m)
+VERSION=${PE_VERSION}
+
+# Check the architecture and print the appropriate message
+if [ "$ARCH" == "x86_64" ]; then
+    ARCH=amd64
+elif [ "$ARCH" == "aarch64" ]  || [ "$ARCH" == "arm64" ]; then
+    ARCH=arm64
+else
+    echo "Unsupported architecture: $ARCH"
+fi
+
+IMAGE=${IMAGE_REPO}/stylus-agent-mode-linux-${ARCH}:${VERSION}
+URL=${AGENT_URL_PREFIX}/palette-agent-${VERSION}-linux-${ARCH}
+
+# Check if USER_DATA is provided
+if [ -z "$USER_DATA" ]; then
+    echo "Error: USER_DATA environment variable must be provided."
+    exit 1
+fi
+
+# Check if USER_DATA is a local file and if it exists
+if [[ "$USER_DATA" == /* ]] || [[ "$USER_DATA" == ./* ]] || [[ "$USER_DATA" == ~* ]]; then
+    if [ ! -f "$USER_DATA" ]; then
+        echo "Error: The specified config file '$USER_DATA' does not exist."
+        exit 1
+    fi
+fi
+
+# Download edge-agent
+curl -v -L $URL -o palette-agent
+chmod +x palette-agent
+
+# Install edge-agent with provided config
+./palette-agent install --source $IMAGE --config "$USER_DATA"

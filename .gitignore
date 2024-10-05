@@ -1,0 +1,46 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/*
+.netrc
+
+# custom arg files
+*.arg
+
+# env files
+*.env
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+
+vendor
+!vendor/**/zz_generated.*
+
+# editor and IDE paraphernalia
+.idea
+*.swp
+*.swo
+*~
+a
+
+# cred file for docker build
+.netrc
+_build
+.scannerwork
+.fossa.yml
+.DS_Store
+.temp
+local
+
+outputs/
+build/*
+*_local*
+*__debug_bin*
+*.vscode*
