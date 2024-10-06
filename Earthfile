@@ -88,8 +88,8 @@ install-script:
     ENV AGENT_URL_PREFIX=${AGENT_URL_PREFIX}
 
     WORKDIR /workdir
-    COPY install.sh.tmpl /workdir/install.sh.tmpl
-    RUN envsubst '${PE_VERSION} ${IMAGE_REPO} ${AGENT_URL_PREFIX}' < /workdir/install.sh.tmpl > /workdir/install.sh
-    RUN chmod +x /workdir/install.sh
+    COPY palette-agent-install.sh.tmpl /workdir/palette-agent-install.sh.tmpl
+    RUN envsubst '${PE_VERSION} ${IMAGE_REPO} ${AGENT_URL_PREFIX}' < /workdir/palette-agent-install.sh.tmpl > /workdir/palette-agent-install.sh
+    RUN chmod +x /workdir/palette-agent-install.sh
 
-    SAVE ARTIFACT /workdir/install.sh AS LOCAL ./build/install.sh
+    SAVE ARTIFACT /workdir/palette-agent-install.sh AS LOCAL ./build/palette-agent-install.sh
