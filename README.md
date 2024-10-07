@@ -1,5 +1,12 @@
 # agent-mode
 
+## Prerequisites
+
+- `bash`
+- `rsync`
+- `jq`
+- `conntrack` (for `pxke` clusters only)
+
 ## Quick Start
 
 ```bash
