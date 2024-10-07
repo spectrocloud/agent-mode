@@ -4,6 +4,8 @@ ARG --global SPECTRO_PUB_REPO=us-docker.pkg.dev/palette-images
 ARG --global UBUNTU_IMAGE=${SPECTRO_PUB_REPO}/third-party/ubuntu:22.04
 FROM ${UBUNTU_IMAGE}
 
+ARG --global VERSION
+
 release:
     BUILD +package-tar \
         --PLATFORM=linux \
@@ -76,8 +78,7 @@ package-tar:
 
 install-script:
     FROM +ubuntu
-
-    ARG VERSION
+    RUN echo ${VERSION}
     ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG IMAGE_REPO=${SPECTRO_PUB_REPO}/edge
     # https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc2/palette-agent-linux-amd64
