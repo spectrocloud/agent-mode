@@ -30,3 +30,14 @@ curl https://github.com/spectrocloud/agent-mode/releases/latest/download/palette
 ```bash
 curl https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install.sh | VERSION=v4.5.0 bash
 ```
+
+## Development
+
+### Build install script
+
+```bash
+earthly +install-script \
+    --IMAGE_REPO=us-docker.pkg.dev/palette-images/edge \
+    --AGENT_URL_PREFIX=https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc5 \
+    --PE_VERSION=v4.5.0-rc7
+```
