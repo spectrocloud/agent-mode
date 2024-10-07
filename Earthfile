@@ -78,7 +78,7 @@ package-tar:
 
 install-script:
     FROM +ubuntu
-    RUN echo ${VERSION}
+
     ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG IMAGE_REPO=${SPECTRO_PUB_REPO}/edge
     # https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc2/palette-agent-linux-amd64
