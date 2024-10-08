@@ -36,10 +36,10 @@ curl -v -L $URL -o palette-agent
 chmod +x palette-agent
 
 # Install with palette-agent
-if [ -z "$USER_DATA" ]; then
+if [ -z "$USERDATA" ]; then
     # Install without user data
     ./palette-agent install --source $IMAGE
 else
     # Install with user data
-    ./palette-agent install --source $IMAGE --config "$USER_DATA"
+    ./palette-agent install --source $IMAGE --config "$USERDATA"
 fi
