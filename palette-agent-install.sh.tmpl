@@ -2,6 +2,13 @@
 set -e
 # set -x
 
+function check_dependency() {
+    if ! command -v $1 &>/dev/null; then
+        echo "$1 is not installed. Please install it and try again."
+        exit 1
+    fi
+}
+
 # Get the platform architecture
 ARCH=$(uname -m)
 VERSION=${PE_VERSION}
@@ -14,6 +21,12 @@ elif [ "$ARCH" == "aarch64" ] || [ "$ARCH" == "arm64" ]; then
 else
     echo "Unsupported architecture: $ARCH"
 fi
+
+# Check if the required tools are installed
+dependencies=(bash systemctl jq rsync)
+for dep in "${dependencies[@]}"; do
+    check_dependency $dep
+done
 
 IMAGE=${IMAGE_REPO}/stylus-agent-mode-linux-${ARCH}:${VERSION}
 URL=${AGENT_URL_PREFIX}/palette-agent-linux-${ARCH}
