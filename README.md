@@ -3,6 +3,7 @@
 ## Prerequisites
 
 - `bash`
+- `systemd`
 - `rsync`
 - `jq`
 - `zstd`
