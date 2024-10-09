@@ -1,0 +1,46 @@
+#cloud-config
+ssh_pwauth: true
+package_update: true
+package_upgrade: true
+packages:
+  - jq
+  - zstd
+  - conntrack
+  - rsync
+
+write_files:
+  - path: /home/ubuntu/user-data
+    permissions: '0644'
+    owner: ubuntu:ubuntu
+    content: |
+      #cloud-config
+      install:
+        reboot: true
+        poweroff: false
+      stylus:
+        skipKubeVip: false
+        site:
+          edgeHostToken: <TOKEN>
+          paletteEndpoint: <ENDPOINT>
+          deviceUIDPaths:
+            - name: /etc/hostname
+              regex: ".*"
+      stages:
+        initramfs:
+          - users:
+              kairos:
+                groups:
+                  - sudo
+                passwd: kairos
+
+  - path: /home/ubuntu/install.sh
+    permissions: '0755'
+    owner: ubuntu:ubuntu
+    content: |
+      #!/bin/bash
+      # export USERDATA variable local path or with URL
+      export USERDATA=/home/ubuntu/user-data
+      curl -Ls https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc9/palette-agent-install.sh | bash
+
+runcmd:
+  - /home/ubuntu/install.sh
