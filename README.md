@@ -5,6 +5,7 @@
 - `bash`
 - `rsync`
 - `jq`
+- `zstd`
 - `conntrack` (for `pxke` clusters only)
 
 ## Quick Start
