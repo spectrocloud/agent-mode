@@ -23,7 +23,7 @@ else
 fi
 
 # Check if the required tools are installed
-dependencies=(bash systemctl jq rsync)
+dependencies=(bash systemctl jq rsync zstd)
 for dep in "${dependencies[@]}"; do
     check_dependency $dep
 done
