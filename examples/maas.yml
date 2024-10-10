@@ -11,7 +11,6 @@ packages:
 write_files:
   - path: /home/ubuntu/user-data
     permissions: '0644'
-    owner: ubuntu:ubuntu
     content: |
       #cloud-config
       install:
@@ -35,7 +34,6 @@ write_files:
 
   - path: /home/ubuntu/install.sh
     permissions: '0755'
-    owner: ubuntu:ubuntu
     content: |
       #!/bin/bash
       # export USERDATA variable local path or with URL
