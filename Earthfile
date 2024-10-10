@@ -34,10 +34,10 @@ stylus-image:
 palette-agent:
     FROM +ubuntu
 
-    ARG VERSION=$(head -n 1 PE_VERSION)
+    ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG PLATFORM=linux
     ARG ARCH=amd64
-    ARG STYLUS_IMAGE=${SPECTRO_PUB_REPO}/edge/stylus-agent-mode-${PLATFORM}-${ARCH}:${VERSION}
+    ARG STYLUS_IMAGE=${SPECTRO_PUB_REPO}/edge/stylus-agent-mode-${PLATFORM}-${ARCH}:${PE_VERSION}
     
     WORKDIR /workdir
     COPY (+stylus-image/opt/spectrocloud/bin/palette-agent --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/
@@ -48,10 +48,10 @@ palette-agent:
 package-tar:
     FROM +ubuntu
     
-    ARG VERSION=$(head -n 1 PE_VERSION)
+    ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG PLATFORM=linux
     ARG ARCH=amd64
-    ARG STYLUS_IMAGE=${SPECTRO_PUB_REPO}/edge/stylus-agent-mode-${PLATFORM}-${ARCH}:${VERSION}
+    ARG STYLUS_IMAGE=${SPECTRO_PUB_REPO}/edge/stylus-agent-mode-${PLATFORM}-${ARCH}:${PE_VERSION}
     ARG TAR_NAME=agent-mode-${PLATFORM}-${ARCH}
 
     WORKDIR /workdir/var/lib/spectro
