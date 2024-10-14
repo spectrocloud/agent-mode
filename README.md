@@ -9,7 +9,10 @@ Before you begin, ensure you have the following installed:
 - `rsync`
 - `jq`
 - `zstd`
-- `conntrack` (for `pxke` clusters only)
+- `conntrack` (required for `PXKE` clusters)
+- `systemd-networkd` (required if palette is managing networks)
+- `systemd-resolved` (required if palette is managing DNS)
+- `systemd-timesyncd` (required if palette is managing NTP)
 
 ## Quick Start
 
