@@ -49,6 +49,7 @@ Refer to [Palette Agent Parameters Documentation](https://docs.spectrocloud.com/
 Here are some examples of how to use the install script on different platforms.
 
 - [MAAS](examples/maas/README.md)
+- [Lima](examples/lima/README.md)
 
 ## Development
 

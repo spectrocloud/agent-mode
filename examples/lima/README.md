@@ -8,6 +8,8 @@
 export USERDATA=<path-to-your-userdata>
 ```
 
+> **Note:** Check more about lima configuration [here](https://lima-vm.io/docs/config/)
+
 4. Create and start the VM
 
 ```bash
