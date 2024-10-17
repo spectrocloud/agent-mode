@@ -24,14 +24,16 @@ dns:
 networks:
   - lima: bridged
     interface: en0
+
 mounts:
   - location: "/tmp/lima"
     writable: true
+
 provision:
   - mode: system
     script: |
       #!/bin/sh
       apt-get update
-      apt-get install -y conntrack jq zstd rsync curl wget systemd-timesyncd
+      apt-get install -y conntrack jq zstd rsync curl systemd
       export USERDATA=<path-to-your-userdata>
       curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install.sh | bash
