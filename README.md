@@ -48,11 +48,8 @@ Refer to [Palette Agent Parameters Documentation](https://docs.spectrocloud.com/
 
 Here are some examples of how to use the install script on different platforms.
 
-### MAAS
-
-Use [maas.yml](examples/maas.yml) as cloudinit to provision your machine.
-
-> **Note:** You might need to modify the cloudinit with your own userdata.
+- [MAAS](examples/maas/README.md)
+- [Lima](examples/lima/README.md)
 
 ## Development
 
