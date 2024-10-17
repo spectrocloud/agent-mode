@@ -33,6 +33,7 @@ provision:
   - mode: system
     script: |
       #!/bin/sh
+      DEBIAN_FRONTEND=noninteractive
       apt-get update
       apt-get install -y conntrack jq zstd rsync curl systemd
       export USERDATA=<path-to-your-userdata>
