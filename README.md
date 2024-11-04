@@ -40,6 +40,12 @@ curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/pal
 curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install.sh | VERSION=v4.5.0 bash
 ```
 
+## FIPS
+
+```bash
+curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install-fips.sh | bash
+```
+
 ## Userdata
 
 Refer to [Palette Agent Parameters Documentation](https://docs.spectrocloud.com/clusters/edge/edge-configuration/installer-reference/#palette-agent-parameters) for more details.
