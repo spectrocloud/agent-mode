@@ -13,6 +13,7 @@ Before you begin, ensure you have the following installed:
 - `systemd-networkd` (required if palette is managing networks)
 - `systemd-resolved` (required if palette is managing DNS)
 - `systemd-timesyncd` (required if palette is managing NTP)
+- `rsyslog` (required for audit logs)
 
 ## Quick Start
 
