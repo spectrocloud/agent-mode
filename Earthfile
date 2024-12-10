@@ -19,6 +19,19 @@ release:
     
     BUILD +install-script
 
+release-fips:
+    BUILD +package-tar \
+        --PLATFORM=linux \
+        --ARCH=amd64 \
+        --FIPS=true
+
+    BUILD +palette-agent \
+        --PLATFORM=linux \
+        --ARCH=amd64 \
+        --FIPS=true
+
+    BUILD +install-script \
+        --FIPS=true
 ubuntu:
     FROM ${UBUNTU_IMAGE}
     RUN apt-get update && apt-get install -y systemctl gettext-base
@@ -34,6 +47,7 @@ stylus-image:
 palette-agent:
     FROM +ubuntu
 
+    ARG FIPS=false
     ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG PLATFORM=linux
     ARG ARCH=amd64
@@ -43,16 +57,26 @@ palette-agent:
     COPY (+stylus-image/opt/spectrocloud/bin/palette-agent --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/
     RUN chmod +x /workdir/palette-agent
 
-    SAVE ARTIFACT /workdir/palette-agent AS LOCAL ./build/palette-agent-${PLATFORM}-${ARCH}
+    LET BIN_NAME=palette-agent-${PLATFORM}-${ARCH}
+    IF $FIPS
+        SET BIN_NAME=palette-agent-fips-${PLATFORM}-${ARCH}
+    END
+
+    SAVE ARTIFACT /workdir/palette-agent AS LOCAL ./build/${BIN_NAME}
 
 package-tar:
     FROM +ubuntu
     
+    ARG FIPS=false
     ARG PE_VERSION=$(head -n 1 PE_VERSION)
     ARG PLATFORM=linux
     ARG ARCH=amd64
     ARG STYLUS_IMAGE=${SPECTRO_PUB_REPO}/edge/stylus-agent-mode-${PLATFORM}-${ARCH}:${PE_VERSION}
-    ARG TAR_NAME=agent-mode-${PLATFORM}-${ARCH}
+    IF $FIPS
+        ARG TAR_NAME=agent-mode-fips-${PLATFORM}-${ARCH}
+    ELSE
+        ARG TAR_NAME=agent-mode-${PLATFORM}-${ARCH}
+    END
 
     WORKDIR /workdir/var/lib/spectro
     COPY (+stylus-image/ --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/var/lib/spectro/stylus
