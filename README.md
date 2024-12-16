@@ -41,7 +41,7 @@ curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/pal
 curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install.sh | VERSION=v4.5.0 bash
 ```
 
-## FIPS
+## FIPS(Work In Progress)
 
 ```bash
 curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install-fips.sh | bash
