@@ -13,6 +13,7 @@ Before you begin, ensure you have the following installed:
 - `systemd-networkd` (required if palette is managing networks)
 - `systemd-resolved` (required if palette is managing DNS)
 - `systemd-timesyncd` (required if palette is managing NTP)
+- `rsyslog` (required for audit logs)
 
 ## Quick Start
 
@@ -40,7 +41,7 @@ curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/pal
 curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install.sh | VERSION=v4.5.0 bash
 ```
 
-## FIPS
+## FIPS(Work In Progress)
 
 ```bash
 curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install-fips.sh | bash
