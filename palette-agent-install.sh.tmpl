@@ -29,9 +29,9 @@ for dep in "${dependencies[@]}"; do
 done
 
 IMAGE=${IMAGE:-${IMAGE_REPO}/stylus-agent-mode-linux-${ARCH}:${VERSION}}
-URL=${URL:-${AGENT_URL_PREFIX}/palette-agent-linux-${ARCH}}
+URL=${URL:-${AGENT_URL_PREFIX}/${BIN_PREFIX}-linux-${ARCH}}
 
-# Download edge-agent
+# Download palette-agent
 curl -v -L $URL -o palette-agent
 chmod +x palette-agent
 

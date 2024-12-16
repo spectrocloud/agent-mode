@@ -107,14 +107,19 @@ install-script:
     ARG IMAGE_REPO=${SPECTRO_PUB_REPO}/edge
     # https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc2/palette-agent-linux-amd64
     ARG AGENT_URL_PREFIX=https://github.com/spectrocloud/agent-mode/releases/download/${VERSION}
+    LET BIN_PREFIX=palette-agent
+    IF $FIPS
+        SET BIN_PREFIX=palette-agent-fips
+    END
     
     ENV PE_VERSION=${PE_VERSION}
     ENV IMAGE_REPO=${IMAGE_REPO}
     ENV AGENT_URL_PREFIX=${AGENT_URL_PREFIX}
+    ENV BIN_PREFIX=${BIN_PREFIX}
 
     WORKDIR /workdir
     COPY palette-agent-install.sh.tmpl /workdir/palette-agent-install.sh.tmpl
-    RUN envsubst '${PE_VERSION} ${IMAGE_REPO} ${AGENT_URL_PREFIX}' < /workdir/palette-agent-install.sh.tmpl > /workdir/palette-agent-install.sh
+    RUN envsubst '${PE_VERSION} ${IMAGE_REPO} ${AGENT_URL_PREFIX} ${BIN_PREFIX}' < /workdir/palette-agent-install.sh.tmpl > /workdir/palette-agent-install.sh
     RUN chmod +x /workdir/palette-agent-install.sh
 
     SAVE ARTIFACT /workdir/palette-agent-install.sh AS LOCAL ./build/palette-agent-install.sh
