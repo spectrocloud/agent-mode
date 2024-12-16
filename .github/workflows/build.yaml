@@ -38,7 +38,5 @@ jobs:
           echo $(git describe --exact-match --tags || echo "v0.0.0-$(git rev-parse --short=8 HEAD)") > VERSION
           echo "version=$(head -n 1 VERSION)" >> $GITHUB_OUTPUT
       - name: Build artifacts
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          earthly --ci --output +release
+          earthly --ci --output +release --VERSION=${{ steps.version.outputs.version }}

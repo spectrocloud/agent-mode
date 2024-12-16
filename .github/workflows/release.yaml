@@ -33,7 +33,15 @@ jobs:
           use-cache: true
       - name: Build artifacts
         run: |
-          earthly --ci --output +release --VERSION ${{ github.ref_name }}
+          set -x
+          earthly --ci --output +release \
+            --VERSION=${{ github.ref_name }}
+      - name: Build FIPS artifacts
+        run: |
+          set -x
+          earthly --ci --output +release-fips \
+            --VERSION=${{ github.ref_name }} \
+            --SPECTRO_PUB_REPO=us-docker.pkg.dev/palette-images-fips
       - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
