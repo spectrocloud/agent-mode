@@ -1,0 +1,10 @@
+### aws
+aws_access_key=""
+aws_secret_key=""
+
+#### azure
+#### NOT SUPPORTED YET
+azure_client_id=""
+azure_client_secret=""
+azure_tenant_id=""
+azure_subscription_id=""
