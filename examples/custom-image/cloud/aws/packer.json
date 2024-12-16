@@ -32,7 +32,7 @@
   {
     "type": "shell",
     "inline": [
-      "curl -fsSL -o /tmp/palette-agent-install.sh https://github.com/spectrocloud/agent-mode/releases/download/v4.5.11-rc.1/palette-agent-install.sh",
+      "curl -fsSL -o /tmp/palette-agent-install.sh https://github.com/spectrocloud/agent-mode/releases/latest/download/palette-agent-install.sh",
       "chmod +x /tmp/palette-agent-install.sh",
       "sudo /tmp/palette-agent-install.sh"
     ]
