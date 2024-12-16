@@ -1,0 +1,41 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "{{ user `aws_region` }}",
+    "source_ami": "{{user `source_ami`}}",
+    "instance_type": "{{user `builder_instance_type`}}",
+    "ssh_username": "{{user `ssh_username`}}",
+    "ami_name": "{{user `ami_name`}}",
+    "source_ami_filter": {
+      "filters": {
+        "architecture": "x86_64",
+        "name": "{{user `ami_filter_name`}}",
+        "root-device-type": "ebs",
+        "virtualization-type": "hvm"
+      },
+      "most_recent": true,
+      "owners": "{{user `ami_filter_owners`}}"
+    },
+    "vpc_id": "{{ user `vpc_id` }}",
+    "subnet_id": "{{ user `subnet_id` }}"
+  }],
+
+"provisioners": [
+  {
+    "type": "shell",
+    "inline": [
+      "set -e", 
+      "sudo apt update -y || (echo 'APT Update Failed'; exit 1)",
+      "sudo apt install -y bash systemd rsync rsyslog jq zstd conntrack systemd-timesyncd || (echo 'APT Install Failed'; exit 1)"
+    ]
+  },
+  {
+    "type": "shell",
+    "inline": [
+      "curl -fsSL -o /tmp/palette-agent-install.sh https://github.com/spectrocloud/agent-mode/releases/download/v4.5.11-rc.1/palette-agent-install.sh",
+      "chmod +x /tmp/palette-agent-install.sh",
+      "sudo /tmp/palette-agent-install.sh"
+    ]
+  }
+]
+}

@@ -1,0 +1,10 @@
+### aws
+aws_access_key="ASIASO6J6QHXBB6MEXOL"
+aws_secret_key="T27xJQWo9Jj3bxOWGHyXIEqIjVcs2IoA0hZpuf5z"
+
+#### azure
+#### NOT SUPPORTED YET
+azure_client_id=""
+azure_client_secret=""
+azure_tenant_id=""
+azure_subscription_id=""
