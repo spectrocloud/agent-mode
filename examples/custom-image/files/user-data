@@ -1,0 +1,4 @@
+#cloud-config
+stylus:
+  path: /var/lib/spectro
+  installationMode: airgap
