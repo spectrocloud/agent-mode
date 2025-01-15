@@ -107,6 +107,7 @@ install-script:
     ARG IMAGE_REPO=${SPECTRO_PUB_REPO}/edge
     # https://github.com/spectrocloud/agent-mode/releases/download/v4.5.0-rc2/palette-agent-linux-amd64
     ARG AGENT_URL_PREFIX=https://github.com/spectrocloud/agent-mode/releases/download/${VERSION}
+    ARG FIPS=false
     LET BIN_PREFIX=palette-agent
     LET SCRIPT_NAME=palette-agent-install.sh
     IF $FIPS
