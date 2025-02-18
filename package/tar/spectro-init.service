@@ -1,6 +1,7 @@
 [Unit]
-Description=Spectro Initialization 
-Before=local-fs.target spectro-palette-agent-bootstrap.service
+Description=Spectro Initialization
+DefaultDependencies=no
+Before=local-fs.target
 
 [Service]
 ExecStart=/var/lib/spectro/spectro-init.sh
