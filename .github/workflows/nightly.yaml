@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
+  nightly-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,5 +43,7 @@ jobs:
             --VERSION=nightly \
             --SPECTRO_PUB_REPO=us-docker.pkg.dev/palette-images-fips
       - name: Upload release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload --clobber nightly build/*
