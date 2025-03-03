@@ -34,6 +34,32 @@ release-fips:
 
     BUILD +install-script \
         --FIPS=true
+
+nightly:
+    BUILD +package-tar \
+        --PLATFORM=linux \
+        --ARCH=amd64
+    
+    BUILD +palette-agent \
+        --PLATFORM=linux \
+        --ARCH=amd64
+    
+    BUILD +install-script
+
+nightly-fips:
+    BUILD +package-tar \
+        --PLATFORM=linux \
+        --ARCH=amd64 \
+        --FIPS=true
+
+    BUILD +palette-agent \
+        --PLATFORM=linux \
+        --ARCH=amd64 \
+        --FIPS=true
+
+    BUILD +install-script \
+        --FIPS=true
+
 ubuntu:
     FROM ${UBUNTU_IMAGE}
     RUN apt-get update && apt-get install -y systemctl gettext-base

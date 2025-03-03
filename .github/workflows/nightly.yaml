@@ -39,20 +39,20 @@ jobs:
         run: |
           version=$(curl -Ls 'https://api.dev.spectrocloud.com/v1/services/stylus/version' \
           -H 'Accept: application/json' \
-          -H 'ApiKey: ${{ secrets.SECRET_TOKEN }}' | jq -r '.spec.latestVersion.content' | grep -oP 'version:\s*\K\S+')
-          echo "version=$version" >> $GITHUB_OUTPUT
+          -H 'ApiKey: ${{ secrets.HUBBLE_API_TOKEN }}' | jq -r '.spec.latestVersion.content' | grep -oP 'version:\s*\K\S+')
+          echo "version=v$version" >> $GITHUB_OUTPUT
       - name: Build artifacts
         run: |
           set -x
-          earthly --ci --output +release \
-            --VERSION=nightly
-            --SPECTRO_PUB_REPO=us-east1-docker.pkg.dev/spectro-images/daily
-            --PE_VERSION=${{ steps.stylus_version.outputs.version }}
+          earthly --ci --output +nightly \
+            --VERSION=nightly \
+            --SPECTRO_PUB_REPO=us-east1-docker.pkg.dev/spectro-images/daily \
+            --PE_VERSION=${{ steps.stylus_version.outputs.version }} \
             --UBUNTU_IMAGE=us-docker.pkg.dev/palette-images/third-party/ubuntu:22.04
       - name: Build FIPS artifacts
         run: |
           set -x
-          earthly --ci --output +release-fips \
+          earthly --ci --output +nightly-fips \
             --VERSION=nightly \
             --SPECTRO_PUB_REPO=us-east1-docker.pkg.dev/spectro-images/daily-fips \
             --PE_VERSION=${{ steps.stylus_version.outputs.version }} \
