@@ -37,9 +37,10 @@ jobs:
       - name: Get latest dev version
         id: stylus_version
         run: |
-          version=$(curl -Ls 'https://api.dev.spectrocloud.com/v1/services/stylus/version' \
+          #!/bin/bash
+          version=$(curl -s -L 'https://api.dev.spectrocloud.com/v1/services/stylus/version' \
           -H 'Accept: application/json' \
-          -H 'ApiKey: ${{ secrets.SECRET_TOKEN }}' | jq -r '.spec.latestVersion.content' | grep -oP 'version:\s*\K\S+')
+            -H "ApiKey: ${{ secrets.SECRET_TOKEN }}" | jq -r '.spec.latestVersion.content' | grep -oP 'version:\s*\K\S+')
           echo "version=$version" >> $GITHUB_OUTPUT
       - name: Build artifacts
         run: |
