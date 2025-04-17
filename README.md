@@ -14,6 +14,7 @@ Before you begin, ensure you have the following installed:
 - `systemd-resolved` (required if palette is managing DNS)
 - `systemd-timesyncd` (required if palette is managing NTP)
 - `rsyslog` (required for audit logs)
+- `nfs-common` (required for zot) in Ubuntu. Equivalent packages for other OS - `nfs-utils` for RHEL, `nfs-client` for Opensuse
 
 ## Quick Start
 
