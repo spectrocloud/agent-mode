@@ -16,6 +16,12 @@ Before you begin, ensure you have the following installed:
 - `rsyslog` (required for audit logs)
 - `nfs-common` (required for zot) in Ubuntu. Equivalent packages for other OS - `nfs-utils` for RHEL, `nfs-client` for Opensuse
 
+To enable FIPS modules on Ubuntu - refer to the documentation [here](https://ubuntu.com/tutorials/using-the-ubuntu-pro-client-to-enable-fips#1-overview)
+
+To enable FIPS mode of RHEL - refer to the documentation [here](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/switching-rhel-to-fips-mode_security-hardening)
+
+Refer to respective Operating system documentation for enabling FIPS mode.
+
 ## Quick Start
 
 To quickly install the agent, run the following command:
