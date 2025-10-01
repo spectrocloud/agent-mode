@@ -38,11 +38,13 @@ release-fips:
 nightly:
     BUILD +package-tar \
         --PLATFORM=linux \
-        --ARCH=amd64
+        --ARCH=amd64 \
+        --ARCH=arm64
     
     BUILD +palette-agent \
         --PLATFORM=linux \
-        --ARCH=amd64
+        --ARCH=amd64 \
+        --ARCH=arm64
     
     BUILD +install-script
 
@@ -50,11 +52,13 @@ nightly-fips:
     BUILD +package-tar \
         --PLATFORM=linux \
         --ARCH=amd64 \
+        --ARCH=arm64 \
         --FIPS=true
 
     BUILD +palette-agent \
         --PLATFORM=linux \
         --ARCH=amd64 \
+        --ARCH=arm64 \
         --FIPS=true
 
     BUILD +install-script \
