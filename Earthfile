@@ -16,6 +16,8 @@ release:
         --PLATFORM=linux \
         --ARCH=amd64 \
         --ARCH=arm64
+
+    BUILD +uninstall-script
     
     BUILD +install-script
 
@@ -32,6 +34,9 @@ release-fips:
         --ARCH=arm64 \
         --FIPS=true
 
+    BUILD +uninstall-script \
+        --FIPS=true
+
     BUILD +install-script \
         --FIPS=true
 
@@ -46,6 +51,8 @@ nightly:
         --ARCH=amd64 \
         --ARCH=arm64
     
+    BUILD +uninstall-script
+
     BUILD +install-script
 
 nightly-fips:
@@ -59,6 +66,9 @@ nightly-fips:
         --PLATFORM=linux \
         --ARCH=amd64 \
         --ARCH=arm64 \
+        --FIPS=true
+
+    BUILD +uninstall-script \
         --FIPS=true
 
     BUILD +install-script \
@@ -95,6 +105,20 @@ palette-agent:
     END
 
     SAVE ARTIFACT /workdir/palette-agent AS LOCAL ./build/${BIN_NAME}
+
+uninstall-script:
+    FROM +ubuntu
+
+    ARG FIPS=false
+    ARG PE_VERSION=$(head -n 1 PE_VERSION)
+    ARG PLATFORM=linux
+    ARG ARCH=amd64
+    ARG STYLUS_IMAGE=${SPECTRO_PUB_REPO}/edge/stylus-agent-mode-${PLATFORM}-${ARCH}:${PE_VERSION}
+
+    WORKDIR /workdir
+    COPY (+stylus-image/opt/spectrocloud/scripts/spectro-uninstall.sh --PLATFORM=${PLATFORM} --ARCH=${ARCH} --STYLUS_IMAGE=${STYLUS_IMAGE}) /workdir/spectro-uninstall.sh
+
+    SAVE ARTIFACT /workdir/spectro-uninstall.sh AS LOCAL ./build/spectro-uninstall-${PLATFORM}-${ARCH}.sh
 
 package-tar:
     FROM +ubuntu
