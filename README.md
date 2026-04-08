@@ -65,6 +65,13 @@ Here are some examples of how to use the install script on different platforms.
 - [MAAS](examples/maas/README.md)
 - [Lima](examples/lima/README.md)
 
+## Uninstall
+To remove all the artifacts related to agent-mode setup on the host run the script 
+
+```bash
+curl -Ls https://github.com/spectrocloud/agent-mode/releases/latest/download/spectro-uninstall-linux-amd64.sh | bash
+```
+
 ## Development
 
 ### Build install script
