@@ -10,8 +10,8 @@ function check_dependency() {
 }
 
 # Get the platform architecture
-ARCH=$(uname -m)
-VERSION=${PE_VERSION}
+ARCH=${ARCH:-$(uname -m)}
+VERSION=${VERSION:-${PE_VERSION}}
 
 # Check the architecture and print the appropriate message
 if [ "$ARCH" == "x86_64" ]; then
