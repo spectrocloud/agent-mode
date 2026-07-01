@@ -1,0 +1,10 @@
+# crate-ci/typos configuration. Keep additions here narrow — this file
+# is applied to the whole repo and every whitelisted word is a word the
+# spell-checker will stop catching everywhere.
+
+[default.extend-words]
+# nftables input-interface match keyword (e.g. `iif "lo" accept`); also
+# appears in `ip -6 route ... iif <dev>`, iptables long-form flags, etc.
+# Without this typos flags it as a misspelling of "if" and would rewrite
+# the ubuntu-cis nftables rule generator to invalid syntax.
+iif = "iif"
